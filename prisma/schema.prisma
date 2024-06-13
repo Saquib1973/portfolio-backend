@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  name     String?
+  password String
+}
+
+model Technology {
+  id  String @id @default(uuid())
+  name String
+  type Type @default(FRONTEND)
+  visibility Boolean @default(true)
+}
+model StudyTimeline {
+
+  id  Int   @id @default(autoincrement())
+  instituteName String
+  grade String
+  information String
+  subInformation String
+  time  String
+  visibility Boolean @default(true)
+  
+}
+model WorkTimeline {
+  id       Int      @id @default(autoincrement())
+  name     String
+  role     String
+  time     String
+  detail   String[]
+  visibility Boolean @default(true)
+
+}
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String[]
+  detail      String
+  tags        String[]
+  link        String
+  git         String
+  img         String
+  date        String
+  type        Type @default(FRONTEND)
+  visibility Boolean @default(true)
+
+}
+
+enum Type{
+  FRONTEND 
+  BACKEND
+  DESIGN
+  CORE
+  DEVOPS
+}
